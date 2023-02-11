@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	route2 "github.com.fabioqmarsiaj/simulator/application/route"
+	"github.com.fabioqmarsiaj/simulator/infra/kafka"
 	"github.com/joho/godotenv"
 	"log"
 )
@@ -16,12 +15,22 @@ func init() {
 }
 
 func main() {
-	route := route2.Route{
-		ID:       "1",
-		ClientID: "1",
+	//route := route2.Route{
+	//	ID:       "1",
+	//	ClientID: "1",
+	//}
+	//
+	//route.LoadPositions()
+	//stringjson, _ := route.ExportJsonPositions()
+	//fmt.Print(stringjson[1])
+
+	producer := kafka.NewKafkaProducer()
+	err := kafka.Publish("Olá", "readtest", producer)
+	if err != nil {
+		return
 	}
 
-	route.LoadPositions()
-	stringjson, _ := route.ExportJsonPositions()
-	fmt.Print(stringjson[1])
+	for {
+		_ = 1
+	}
 }
